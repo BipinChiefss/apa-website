@@ -16,8 +16,6 @@
 html{scroll-behavior:smooth}
 body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none}
 @media(max-width:768px){body{cursor:auto}}
-.ripple{position:fixed;width:12px;height:12px;border-radius:50%;background:rgba(201,168,76,0.6);pointer-events:none;z-index:9999;transform:translate(-50%,-50%) scale(0);animation:rippleOut .6s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:.8}100%{transform:translate(-50%,-50%) scale(10);opacity:0}}
 
 /* CURSOR */
 #cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s ease;mix-blend-mode:difference}
@@ -447,23 +445,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;justify
 </footer>
 
 <script>
-// ── Mobile touch effects ──
-if('ontouchstart' in window){
-  document.addEventListener('touchstart',e=>{
-    const t=e.touches[0];
-    const el=document.createElement('div');
-    el.className='ripple';
-    el.style.left=t.clientX+'px';
-    el.style.top=t.clientY+'px';
-    document.body.appendChild(el);
-    el.addEventListener('animationend',()=>el.remove());
-  },{passive:true});
-  document.querySelectorAll('a.btn-primary,button.btn-primary,.nav-cta,.drawer-cta').forEach(el=>{
-    el.addEventListener('touchstart',()=>el.style.transform='scale(0.96)',{passive:true});
-    el.addEventListener('touchend',()=>el.style.transform='',{passive:true});
-    el.addEventListener('touchcancel',()=>el.style.transform='',{passive:true});
-  });
-}
+// ── Cursor ──
 const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';cur.style.opacity='1';ring.style.opacity='1'});
